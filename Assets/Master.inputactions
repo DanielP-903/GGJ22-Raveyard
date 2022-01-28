@@ -1,0 +1,33 @@
+{
+    "name": "Master",
+    "maps": [
+        {
+            "name": "Master",
+            "id": "7bfdad48-0366-4d32-85bb-daf3f87fb55e",
+            "actions": [
+                {
+                    "name": "Click",
+                    "type": "Button",
+                    "id": "068fef23-4da4-4954-afb1-597c11ba4e98",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "5bce4993-3168-4ae1-8550-dfec5a555de8",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
