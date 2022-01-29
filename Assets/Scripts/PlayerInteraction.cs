@@ -10,9 +10,11 @@ public class PlayerInteraction : MonoBehaviour
     private RaycastHit m_hit;
     private float m_inputTimer = 0.3f;
 
+    private GameManager m_gameManagerRef;
     // Start is called before the first frame update
     void Start()
     {
+        m_gameManagerRef = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         m_inputTimer = 0.3f;
     }
 
@@ -30,6 +32,8 @@ public class PlayerInteraction : MonoBehaviour
             {
                 // I hit something! now do something...
                 print(m_hit.collider.name);
+                m_gameManagerRef.HandleInteraction(m_hit.transform.gameObject.GetComponent<Tile>().m_position);
+                //m_hit.transform.gameObject.GetComponent<Tile>().SwapTileState();
             }
 
         }
