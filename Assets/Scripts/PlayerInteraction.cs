@@ -33,6 +33,7 @@ public class PlayerInteraction : MonoBehaviour
                 // I hit something! now do something...
                 print(m_hit.collider.name);
                 m_gameManagerRef.HandleInteraction(m_hit.transform.gameObject.GetComponent<Tile>().m_position);
+                m_gameManagerRef.m_moves++;
                 //m_hit.transform.gameObject.GetComponent<Tile>().SwapTileState();
             }
 

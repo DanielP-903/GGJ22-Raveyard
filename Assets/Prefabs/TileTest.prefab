@@ -46,8 +46,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 324dfbe83e49d6043823d7b69ce81d08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_onMaterial: {fileID: 2100000, guid: af218bd98218dc941961091ce524d3ba, type: 2}
   m_offMaterial: {fileID: 2100000, guid: cd33eb4d0db4c5e489251e9da18b2eca, type: 2}
+  m_discoMaterials:
+  - {fileID: 2100000, guid: c7d2dc2f422dfff4f915be0ab5f3f825, type: 2}
+  - {fileID: 2100000, guid: af218bd98218dc941961091ce524d3ba, type: 2}
+  - {fileID: 2100000, guid: 83bc8ae4e17605743b2949dbc637bc28, type: 2}
+  - {fileID: 2100000, guid: 007cbc45c64520449b0189e80684b87c, type: 2}
 --- !u!64 &7333439230090781436
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -218,9 +222,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3295698997076725491, guid: 977ad17a1bcc0a7439624c35e11a59c3, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3864351433577403141, guid: 977ad17a1bcc0a7439624c35e11a59c3, type: 3}
       propertyPath: m_Name
       value: Dirt_FXs
+      objectReference: {fileID: 0}
+    - target: {fileID: 4677426747414088014, guid: 977ad17a1bcc0a7439624c35e11a59c3, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6410867837386487156, guid: 977ad17a1bcc0a7439624c35e11a59c3, type: 3}
+      propertyPath: playOnAwake
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6417356359439182767, guid: 977ad17a1bcc0a7439624c35e11a59c3, type: 3}
       propertyPath: m_LocalScale.x
