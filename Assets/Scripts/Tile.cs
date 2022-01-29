@@ -12,6 +12,7 @@ public class Tile : MonoBehaviour
     internal Vector2Int m_position;
 
     internal GameObject m_foliage;
+    [SerializeField] private GameObject m_skele;
 
     private Material m_disco;
     // Start is called before the first frame update
@@ -27,9 +28,14 @@ public class Tile : MonoBehaviour
     {
         transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = state == 0 ? m_offMaterial : m_disco;
 
-        if (transform.GetChild(2))
+        if (transform.GetChild(3))
         {
-            transform.GetChild(2).gameObject.SetActive(state == 0);
+            transform.GetChild(3).gameObject.SetActive(state == 0);
+        }
+
+        if (m_skele)
+        {
+            m_skele.SetActive(state == 1);
         }
 
         if (previousState != state)
