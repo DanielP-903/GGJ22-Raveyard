@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
-    public int state = 0; 
+    internal int state = 0; 
     [SerializeField] private Material m_onMaterial;
     [SerializeField] private Material m_offMaterial;
-    public List<Vector2Int> m_neighbours = new List<Vector2Int>();
-    public Vector2Int m_position;
+    internal List<Vector2Int> m_neighbours = new List<Vector2Int>();
+    internal Vector2Int m_position;
 
-    public GameObject m_foliage;
+    internal GameObject m_foliage;
     // Start is called before the first frame update
     void Awake()
     {
