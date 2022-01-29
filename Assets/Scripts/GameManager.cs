@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     private int m_noOfTilesOn = 0;
     private bool m_winState;
     internal int m_moves = 0;
+    internal bool m_isPaused = false;
     [SerializeField] private TMP_Text m_movesText;
     [SerializeField] private Slider m_raveometer;
     [SerializeField] private GameObject m_TileObject;
@@ -64,13 +65,16 @@ public class GameManager : MonoBehaviour
 
     public void HandleInteraction(Vector2Int pos)
     {
-        m_grid.m_tiles[pos.x, pos.y].GetComponent<Tile>().SwapTileState();
-        m_noOfTilesOn += m_grid.m_tiles[pos.x, pos.y].GetComponent<Tile>().state == 0 ? -1 : 1;
-        foreach (var neighbour in m_grid.m_tiles[pos.x,pos.y].GetComponent<Tile>().m_neighbours)
-        {
-            m_grid.m_tiles[pos.x + neighbour.x, pos.y + neighbour.y].GetComponent<Tile>().SwapTileState();
-            m_noOfTilesOn += m_grid.m_tiles[pos.x + neighbour.x, pos.y + neighbour.y].GetComponent<Tile>().state == 0 ? -1 : 1;
-        }
+
+            m_grid.m_tiles[pos.x, pos.y].GetComponent<Tile>().SwapTileState();
+            m_noOfTilesOn += m_grid.m_tiles[pos.x, pos.y].GetComponent<Tile>().state == 0 ? -1 : 1;
+            foreach (var neighbour in m_grid.m_tiles[pos.x, pos.y].GetComponent<Tile>().m_neighbours)
+            {
+                m_grid.m_tiles[pos.x + neighbour.x, pos.y + neighbour.y].GetComponent<Tile>().SwapTileState();
+                m_noOfTilesOn +=
+                    m_grid.m_tiles[pos.x + neighbour.x, pos.y + neighbour.y].GetComponent<Tile>().state == 0 ? -1 : 1;
+            }
+        
     }
 
 
