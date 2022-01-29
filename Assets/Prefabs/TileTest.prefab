@@ -50,6 +50,7 @@ MonoBehaviour:
   m_offMaterial: {fileID: 2100000, guid: cd33eb4d0db4c5e489251e9da18b2eca, type: 2}
   m_neighbours: []
   m_position: {x: 0, y: 0}
+  m_foliage: {fileID: 0}
 --- !u!64 &7333439230090781436
 MeshCollider:
   m_ObjectHideFlags: 0

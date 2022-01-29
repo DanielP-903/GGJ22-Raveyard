@@ -10,8 +10,9 @@ public class Tile : MonoBehaviour
     public List<Vector2Int> m_neighbours = new List<Vector2Int>();
     public Vector2Int m_position;
 
+    public GameObject m_foliage;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         state = 0;
     }
@@ -20,6 +21,11 @@ public class Tile : MonoBehaviour
     void Update()
     {
         transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = state == 0 ? m_offMaterial : m_onMaterial;
+
+        if (transform.GetChild(1))
+        {
+            transform.GetChild(1).gameObject.SetActive(state == 0);
+        }
     }
 
     public void SwapTileState()

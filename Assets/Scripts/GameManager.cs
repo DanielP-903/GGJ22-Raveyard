@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
 {
 
     [SerializeField] private GameObject m_TileObject;
+    [SerializeField] private List<GameObject> m_foliageObjects;
     private Grid m_grid = new Grid();
     // Start is called before the first frame update
     void Start()
@@ -27,6 +28,9 @@ public class GameManager : MonoBehaviour
                 m_grid.m_tiles[x, y].transform.position = new Vector3(x * 1.6f, 0, y * 1.6f);
                 m_grid.m_tiles[x, y].name = "Tile: " + x + " , " + y;
                 m_grid.m_tiles[x, y].GetComponent<Tile>().m_position = new Vector2Int(x,y);
+                GameObject chosenFoliage = m_foliageObjects[Random.Range(0, m_foliageObjects.Count)];
+                m_grid.m_tiles[x, y].GetComponent<Tile>().m_foliage = Instantiate(chosenFoliage, m_grid.m_tiles[x, y].transform);
+                //m_grid.m_tiles[x, y].GetComponent<Tile>().m_foliage.GetComponent<MeshRenderer>().material = chosenFoliage.GetComponent<MeshRenderer>().sharedMaterial;
                 if (x + 1 < Grid.WIDTH)
                 {
                     m_grid.m_tiles[x, y].GetComponent<Tile>().m_neighbours.Add(new Vector2Int(1,0));

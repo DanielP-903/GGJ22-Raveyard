@@ -440,6 +440,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_TileObject: {fileID: 1926429326757572277, guid: 54f8203ae0679c64288855c12fda9e7a, type: 3}
+  m_foliageObjects:
+  - {fileID: 3916265602435684253, guid: c9f94e66d4b25554cb4e45c3c479407f, type: 3}
+  - {fileID: 3341301666892226690, guid: ede45b585fd23ff40880de4f16d7776a, type: 3}
 --- !u!4 &1557301492
 Transform:
   m_ObjectHideFlags: 0
