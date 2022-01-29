@@ -5,6 +5,7 @@ using UnityEngine;
 public class Tile : MonoBehaviour
 {
     internal int state = 0; 
+    internal int previousState = 0; 
     [SerializeField] private Material m_onMaterial;
     [SerializeField] private Material m_offMaterial;
     internal List<Vector2Int> m_neighbours = new List<Vector2Int>();
@@ -15,6 +16,7 @@ public class Tile : MonoBehaviour
     void Awake()
     {
         state = 0;
+        previousState = 0;
     }
 
     // Update is called once per frame
@@ -22,10 +24,17 @@ public class Tile : MonoBehaviour
     {
         transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = state == 0 ? m_offMaterial : m_onMaterial;
 
-        if (transform.GetChild(1))
+        if (transform.GetChild(2))
         {
-            transform.GetChild(1).gameObject.SetActive(state == 0);
+            transform.GetChild(2).gameObject.SetActive(state == 0);
         }
+
+        if (previousState != state)
+        {
+            transform.GetChild(1).gameObject.GetComponent<ParticleSystem>().Play();
+        }
+
+        previousState = state;
     }
 
     public void SwapTileState()
