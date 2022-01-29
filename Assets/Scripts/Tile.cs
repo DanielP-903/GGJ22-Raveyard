@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
-    internal int state = 0; 
+    internal int state = 1; 
     internal int previousState = 0; 
     [SerializeField] private Material m_offMaterial;
     [SerializeField] private List<Material> m_discoMaterials;
@@ -18,8 +18,8 @@ public class Tile : MonoBehaviour
     void Awake()
     {
         m_disco = m_discoMaterials[Random.Range(0, m_discoMaterials.Count)];
-        state = 0;
-        previousState = 0;
+        state = 1;
+        previousState = 1;
     }
 
     // Update is called once per frame
