@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
 
 public class Grid
 {
@@ -12,7 +14,11 @@ public class Grid
 
 public class GameManager : MonoBehaviour
 {
-
+    private int m_noOfTilesOn = 0;
+    private bool m_winState;
+    internal int m_moves = 0;
+    [SerializeField] private TMP_Text m_movesText;
+    [SerializeField] private Slider m_raveometer;
     [SerializeField] private GameObject m_TileObject;
     [SerializeField] private List<GameObject> m_foliageObjects;
     private Grid m_grid = new Grid();
@@ -30,7 +36,6 @@ public class GameManager : MonoBehaviour
                 m_grid.m_tiles[x, y].GetComponent<Tile>().m_position = new Vector2Int(x,y);
                 GameObject chosenFoliage = m_foliageObjects[Random.Range(0, m_foliageObjects.Count)];
                 m_grid.m_tiles[x, y].GetComponent<Tile>().m_foliage = Instantiate(chosenFoliage, m_grid.m_tiles[x, y].transform);
-                //m_grid.m_tiles[x, y].GetComponent<Tile>().m_foliage.GetComponent<MeshRenderer>().material = chosenFoliage.GetComponent<MeshRenderer>().sharedMaterial;
                 if (x + 1 < Grid.WIDTH)
                 {
                     m_grid.m_tiles[x, y].GetComponent<Tile>().m_neighbours.Add(new Vector2Int(1,0));
@@ -51,12 +56,22 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    void Update()
+    { 
+        m_raveometer.value = Mathf.Lerp(m_raveometer.value, m_noOfTilesOn / 25.0f, Time.deltaTime*2);
+        m_movesText.text = "Moves: " + m_moves;
+    }
+
     public void HandleInteraction(Vector2Int pos)
     {
-        m_grid.m_tiles[pos.x,pos.y].GetComponent<Tile>().SwapTileState();
+        m_grid.m_tiles[pos.x, pos.y].GetComponent<Tile>().SwapTileState();
+        m_noOfTilesOn += m_grid.m_tiles[pos.x, pos.y].GetComponent<Tile>().state == 0 ? -1 : 1;
         foreach (var neighbour in m_grid.m_tiles[pos.x,pos.y].GetComponent<Tile>().m_neighbours)
         {
             m_grid.m_tiles[pos.x + neighbour.x, pos.y + neighbour.y].GetComponent<Tile>().SwapTileState();
+            m_noOfTilesOn += m_grid.m_tiles[pos.x + neighbour.x, pos.y + neighbour.y].GetComponent<Tile>().state == 0 ? -1 : 1;
         }
     }
+
+
 }
