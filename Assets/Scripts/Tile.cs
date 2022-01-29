@@ -19,7 +19,7 @@ public class Tile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        GetComponent<MeshRenderer>().material = state == 0 ? m_offMaterial : m_onMaterial;
+        transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = state == 0 ? m_offMaterial : m_onMaterial;
     }
 
     public void SwapTileState()

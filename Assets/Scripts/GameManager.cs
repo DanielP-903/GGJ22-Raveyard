@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
             {
                 GameObject tile = Instantiate(m_TileObject);
                 m_grid.m_tiles[x, y] = tile;
-                m_grid.m_tiles[x, y].transform.position = new Vector3(x * 2, 0, y * 2);
+                m_grid.m_tiles[x, y].transform.position = new Vector3(x * 1.6f, 0, y * 1.6f);
                 m_grid.m_tiles[x, y].name = "Tile: " + x + " , " + y;
                 m_grid.m_tiles[x, y].GetComponent<Tile>().m_position = new Vector2Int(x,y);
                 if (x + 1 < Grid.WIDTH)
