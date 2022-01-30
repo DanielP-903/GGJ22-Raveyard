@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Slider m_raveometer;
     [SerializeField] private GameObject m_winPanel;
     [SerializeField] private GameObject m_TileObject;
-
+    [SerializeField] private TMP_Text m_totalMoves;
     [SerializeField] private List<GameObject> m_foliageObjects;
     private Grid m_grid = new Grid();
 
@@ -70,6 +70,9 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        m_note1.SetActive(false);
+        m_note2.SetActive(false);
+        m_note3.SetActive(false);
         m_music.volume = VOLUME_MULTI;
         m_sfx.volume = 0.75f * VOLUME_MULTI;
         m_isPaused = false;
@@ -151,7 +154,7 @@ public class GameManager : MonoBehaviour
     { 
         m_raveometer.value = Mathf.Lerp(m_raveometer.value, m_noOfTilesOn / 25.0f, Time.deltaTime*3);
         m_movesText.text = "Moves: " + m_moves;
-        m_levelText.text = "LEVEL: " + LEVEL;
+        m_levelText.text = "LEVEL " + LEVEL;
         m_parText.text = "Par: " + PAR_MOVES;
 
         if (m_raveometer.value > 0.99f)
@@ -168,6 +171,7 @@ public class GameManager : MonoBehaviour
         }
         if (m_winState)
         {
+            m_totalMoves.text = "Total Moves: " + m_moves;
             foreach (var t in m_lasers)
             {
                 t.SetActive(true);
@@ -202,44 +206,50 @@ public class GameManager : MonoBehaviour
             {
                 m_note1.SetActive(true);
                 m_note2.SetActive(true);
-                switch (LEVEL)
+                if (LVL2_NOTES <= 2)
                 {
-                    case 1:
+                    switch (LEVEL)
                     {
-                        LVL1_NOTES = 2;
-                        break;
-                    }
-                    case 2:
-                    {
-                        LVL2_NOTES = 2;
-                        break;
-                    }
-                    case 3:
-                    {
-                        LVL3_NOTES = 2;
-                        break;
+                        case 1:
+                        {
+                            LVL1_NOTES = 2;
+                            break;
+                        }
+                        case 2:
+                        {
+                            LVL2_NOTES = 2;
+                            break;
+                        }
+                        case 3:
+                        {
+                            LVL3_NOTES = 2;
+                            break;
+                        }
                     }
                 }
             }
             else
             {
                 m_note1.SetActive(true);
-                switch (LEVEL)
+                if (LVL2_NOTES <= 1)
                 {
-                    case 1:
+                    switch (LEVEL)
                     {
-                        LVL1_NOTES = 1;
-                        break;
-                    }
-                    case 2:
-                    {
-                        LVL2_NOTES = 1;
-                        break;
-                    }
-                    case 3:
-                    {
-                        LVL3_NOTES = 1;
-                        break;
+                        case 1:
+                        {
+                            LVL1_NOTES = 1;
+                            break;
+                        }
+                        case 2:
+                        {
+                            LVL2_NOTES = 1;
+                            break;
+                        }
+                        case 3:
+                        {
+                            LVL3_NOTES = 1;
+                            break;
+                        }
                     }
                 }
             }
