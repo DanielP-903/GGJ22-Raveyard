@@ -24,9 +24,12 @@ public class GameManager : MonoBehaviour
     private bool m_winState;
     internal int m_moves = 0;
     internal bool m_isPaused = false;
+    
     [SerializeField] private TMP_Text m_movesText;
     [SerializeField] private TMP_Text m_levelText;
     [SerializeField] private TMP_Text m_parText;
+    [SerializeField] private List<ParticleSystem> m_party;
+    [SerializeField] private List<GameObject> m_lasers;
     [SerializeField] private GameObject m_note1;
     [SerializeField] private GameObject m_note2;
     [SerializeField] private GameObject m_note3;
@@ -124,6 +127,15 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
+
+        foreach (var t in m_party)
+        {
+            t.Play();
+        }
+        foreach (var t in m_lasers)
+        {
+            t.SetActive(false);
+        }
     }
 
     void Update()
@@ -138,8 +150,19 @@ public class GameManager : MonoBehaviour
             m_winState = true;
         }
 
+        for (int i = 0; i < m_party.Count; i++)
+        {
+            var emissionModule = m_party[i].emission;
+            ParticleSystem.MinMaxCurve tempCurve = emissionModule.rateOverTime;
+            tempCurve.constant = m_raveometer.value * 3;
+            emissionModule.rateOverTime = tempCurve;
+        }
         if (m_winState)
         {
+            foreach (var t in m_lasers)
+            {
+                t.SetActive(true);
+            }
             m_winPanel.SetActive(true);
             if (m_moves <= PAR_MOVES)
             {
