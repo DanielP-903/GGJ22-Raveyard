@@ -70,8 +70,8 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        m_music.volume *= VOLUME_MULTI;
-        m_sfx.volume *= VOLUME_MULTI;
+        m_music.volume = VOLUME_MULTI;
+        m_sfx.volume = 0.75f * VOLUME_MULTI;
         m_isPaused = false;
         m_winState = false;
         for (int x = 0; x < Grid.WIDTH; x++)
