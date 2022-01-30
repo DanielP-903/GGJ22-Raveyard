@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     public static int LVL1_NOTES = 0;
     public static int LVL2_NOTES = 0;
     public static int LVL3_NOTES = 0;
+    public static float VOLUME_MULTI = 1.0f;
     private int m_noOfTilesOn = 0;
     private bool m_winState;
     internal int m_moves = 0;
@@ -37,8 +38,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Slider m_raveometer;
     [SerializeField] private GameObject m_winPanel;
     [SerializeField] private GameObject m_TileObject;
+
     [SerializeField] private List<GameObject> m_foliageObjects;
     private Grid m_grid = new Grid();
+
+    [SerializeField] private AudioSource m_music;
+    [SerializeField] private AudioSource m_sfx;
 
     private readonly int[,] m_layoutLevel1 = {
         {0,0,1,1,1}, 
@@ -65,6 +70,8 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        m_music.volume *= VOLUME_MULTI;
+        m_sfx.volume *= VOLUME_MULTI;
         m_isPaused = false;
         m_winState = false;
         for (int x = 0; x < Grid.WIDTH; x++)
@@ -243,6 +250,7 @@ public class GameManager : MonoBehaviour
     public void HandleInteraction(Vector2Int pos)
     {
         m_chadEffect.Play();
+        m_sfx.Play();
         m_grid.m_tiles[pos.x, pos.y].GetComponent<Tile>().SwapTileState();
         m_noOfTilesOn += m_grid.m_tiles[pos.x, pos.y].GetComponent<Tile>().state == 0 ? -1 : 1;
         foreach (var neighbour in m_grid.m_tiles[pos.x, pos.y].GetComponent<Tile>().m_neighbours)

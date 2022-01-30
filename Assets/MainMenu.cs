@@ -1,15 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
+
     [SerializeField] private List<GameObject> m_level1Notes;
     [SerializeField] private List<GameObject> m_level2Notes;
     [SerializeField] private List<GameObject> m_level3Notes;
+    [SerializeField] private Slider m_volumeSlider;
     void Update()
     {
+        GameManager.VOLUME_MULTI = m_volumeSlider.value;
         if (transform.GetChild(2).gameObject.activeInHierarchy)
         {
             for (int i = 0; i < GameManager.LVL1_NOTES; i++)
@@ -57,4 +62,5 @@ public class MainMenu : MonoBehaviour
     {
         Application.Quit();
     }
+
 }
