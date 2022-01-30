@@ -47,19 +47,20 @@ public class GameManager : MonoBehaviour
         {1,1,1,1,0}
     };
     private readonly int[,] m_layoutLevel2 = {
-        {1,1,1,1,1},
-        {1,1,1,1,1},
-        {0,1,0,1,0},
-        {1,1,1,1,1},
-        {1,1,1,1,1}
-    }; 
-    private readonly int[,] m_layoutLevel3 = {
         {0,0,1,1,0},
         {1,1,0,0,1},
         {0,1,1,1,0},
         {1,0,0,1,0},
         {1,0,1,0,1}
     };
+    private readonly int[,] m_layoutLevel3 = {
+        {1,1,1,1,1},
+        {1,1,1,1,1},
+        {0,1,0,1,0},
+        {1,1,1,1,1},
+        {1,1,1,1,1}
+    }; 
+
     // Start is called before the first frame update
     void Start()
     {

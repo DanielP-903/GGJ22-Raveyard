@@ -32,6 +32,24 @@ public class MainMenu : MonoBehaviour
     public void Play(int levelNo)
     {
         GameManager.LEVEL = levelNo;
+        switch (levelNo)
+        {
+            case 1:
+            {
+                GameManager.PAR_MOVES = 5;
+                break;
+            } 
+            case 2:
+            {
+                GameManager.PAR_MOVES = 6;
+                break;
+            }
+            case 3:
+            {
+                GameManager.PAR_MOVES = 7;
+                break;
+            }
+        }
         SceneManager.LoadScene(1);
     }
 
