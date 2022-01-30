@@ -152,5 +152,12 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene(0);
     }
-
+    public void ResetGame()
+    {
+        SceneManager.LoadScene(1);
+    }
+    public void Pause()
+    {
+        m_isPaused = !m_isPaused;
+    }
 }

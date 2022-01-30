@@ -19,6 +19,8 @@ public class Tile : MonoBehaviour
     void Awake()
     {
         m_disco = m_discoMaterials[Random.Range(0, m_discoMaterials.Count)];
+        m_skele.GetComponent<Animator>().SetInteger("DanceMove", Random.Range(0, 5));
+        m_skele.transform.position = m_skele.GetComponent<Animator>().GetInteger("DanceMove") == 0 ? new Vector3(transform.position.x, .8f, transform.position.z) : new Vector3(transform.position.x, 1.15f, transform.position.z);
         state = 1;
         previousState = 1;
     }
@@ -44,6 +46,8 @@ public class Tile : MonoBehaviour
             if (previousState == 0)
             {
                m_disco = m_discoMaterials[Random.Range(0, m_discoMaterials.Count)];
+               m_skele.GetComponent<Animator>().SetInteger("DanceMove", Random.Range(0,5));
+               m_skele.transform.position = m_skele.GetComponent<Animator>().GetInteger("DanceMove") == 0 ? new Vector3(transform.position.x, .8f, transform.position.z) : new Vector3(transform.position.x, 1.15f, transform.position.z);
             }
         }
 
