@@ -26,16 +26,16 @@ public class MainMenu : MonoBehaviour
         m_music.volume = GameManager.VOLUME_MULTI;
         if (transform.GetChild(2).gameObject.activeInHierarchy)
         {
-            for (int i = 0; i < GameManager.LVL1_NOTES; i++)
+            for (int i = 0; i < GameManager.LVL1_NOTES_HIGHEST; i++)
             {
                 m_level1Notes[i].SetActive(true);
             }
-            for (int i = 0; i < GameManager.LVL2_NOTES; i++)
+            for (int i = 0; i < GameManager.LVL2_NOTES_HIGHEST; i++)
             {
                 m_level2Notes[i].SetActive(true);
 
             }
-            for (int i = 0; i < GameManager.LVL3_NOTES; i++)
+            for (int i = 0; i < GameManager.LVL3_NOTES_HIGHEST; i++)
             {
                 m_level3Notes[i].SetActive(true);
 
@@ -55,12 +55,12 @@ public class MainMenu : MonoBehaviour
             } 
             case 2:
             {
-                GameManager.PAR_MOVES = 6;
+                GameManager.PAR_MOVES = 10;
                 break;
             }
             case 3:
             {
-                GameManager.PAR_MOVES = 7;
+                GameManager.PAR_MOVES = 14;
                 break;
             }
         }
