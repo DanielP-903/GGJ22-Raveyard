@@ -15,12 +15,16 @@ public class Grid
 
 public class GameManager : MonoBehaviour
 {
-    public const int LEVEL = 2;
+    public static int LEVEL = 2;
+    public static int LVL1_NOTES = 0;
+    public static int LVL2_NOTES = 0;
+    public static int LVL3_NOTES = 0;
     private int m_noOfTilesOn = 0;
     private bool m_winState;
     internal int m_moves = 0;
     internal bool m_isPaused = false;
     [SerializeField] private TMP_Text m_movesText;
+    [SerializeField] private TMP_Text m_levelText;
     [SerializeField] private Slider m_raveometer;
     [SerializeField] private GameObject m_winPanel;
     [SerializeField] private GameObject m_TileObject;
@@ -121,6 +125,7 @@ public class GameManager : MonoBehaviour
     { 
         m_raveometer.value = Mathf.Lerp(m_raveometer.value, m_noOfTilesOn / 25.0f, Time.deltaTime*3);
         m_movesText.text = "Moves: " + m_moves;
+        m_levelText.text = "LEVEL: " + LEVEL;
 
         if (m_raveometer.value > 0.99f)
         {
