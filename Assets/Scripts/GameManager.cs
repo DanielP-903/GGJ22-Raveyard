@@ -20,21 +20,30 @@ public class GameManager : MonoBehaviour
     public static int LVL1_NOTES = 0;
     public static int LVL2_NOTES = 0;
     public static int LVL3_NOTES = 0;
+    public static float VOLUME_MULTI = 1.0f;
     private int m_noOfTilesOn = 0;
     private bool m_winState;
     internal int m_moves = 0;
     internal bool m_isPaused = false;
+    
     [SerializeField] private TMP_Text m_movesText;
     [SerializeField] private TMP_Text m_levelText;
     [SerializeField] private TMP_Text m_parText;
+    [SerializeField] private List<ParticleSystem> m_party;
+    [SerializeField] private List<GameObject> m_lasers;
     [SerializeField] private GameObject m_note1;
     [SerializeField] private GameObject m_note2;
     [SerializeField] private GameObject m_note3;
+    [SerializeField] private ParticleSystem m_chadEffect;
     [SerializeField] private Slider m_raveometer;
     [SerializeField] private GameObject m_winPanel;
     [SerializeField] private GameObject m_TileObject;
+    [SerializeField] private TMP_Text m_totalMoves;
     [SerializeField] private List<GameObject> m_foliageObjects;
     private Grid m_grid = new Grid();
+
+    [SerializeField] private AudioSource m_music;
+    [SerializeField] private AudioSource m_sfx;
 
     private readonly int[,] m_layoutLevel1 = {
         {0,0,1,1,1}, 
@@ -44,22 +53,28 @@ public class GameManager : MonoBehaviour
         {1,1,1,1,0}
     };
     private readonly int[,] m_layoutLevel2 = {
-        {1,1,1,1,1},
-        {1,1,1,1,1},
-        {0,1,0,1,0},
-        {1,1,1,1,1},
-        {1,1,1,1,1}
-    }; 
-    private readonly int[,] m_layoutLevel3 = {
         {0,0,1,1,0},
         {1,1,0,0,1},
         {0,1,1,1,0},
         {1,0,0,1,0},
         {1,0,1,0,1}
     };
+    private readonly int[,] m_layoutLevel3 = {
+        {1,1,1,1,1},
+        {1,1,1,1,1},
+        {0,1,0,1,0},
+        {1,1,1,1,1},
+        {1,1,1,1,1}
+    }; 
+
     // Start is called before the first frame update
     void Start()
     {
+        m_note1.SetActive(false);
+        m_note2.SetActive(false);
+        m_note3.SetActive(false);
+        m_music.volume = VOLUME_MULTI;
+        m_sfx.volume = 0.75f * VOLUME_MULTI;
         m_isPaused = false;
         m_winState = false;
         for (int x = 0; x < Grid.WIDTH; x++)
@@ -124,13 +139,22 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
+
+        foreach (var t in m_party)
+        {
+            t.Play();
+        }
+        foreach (var t in m_lasers)
+        {
+            t.SetActive(false);
+        }
     }
 
     void Update()
     { 
         m_raveometer.value = Mathf.Lerp(m_raveometer.value, m_noOfTilesOn / 25.0f, Time.deltaTime*3);
         m_movesText.text = "Moves: " + m_moves;
-        m_levelText.text = "LEVEL: " + LEVEL;
+        m_levelText.text = "LEVEL " + LEVEL;
         m_parText.text = "Par: " + PAR_MOVES;
 
         if (m_raveometer.value > 0.99f)
@@ -138,8 +162,20 @@ public class GameManager : MonoBehaviour
             m_winState = true;
         }
 
+        for (int i = 0; i < m_party.Count; i++)
+        {
+            var emissionModule = m_party[i].emission;
+            ParticleSystem.MinMaxCurve tempCurve = emissionModule.rateOverTime;
+            tempCurve.constant = m_raveometer.value * 3;
+            emissionModule.rateOverTime = tempCurve;
+        }
         if (m_winState)
         {
+            m_totalMoves.text = "Total Moves: " + m_moves;
+            foreach (var t in m_lasers)
+            {
+                t.SetActive(true);
+            }
             m_winPanel.SetActive(true);
             if (m_moves <= PAR_MOVES)
             {
@@ -170,44 +206,50 @@ public class GameManager : MonoBehaviour
             {
                 m_note1.SetActive(true);
                 m_note2.SetActive(true);
-                switch (LEVEL)
+                if (LVL2_NOTES <= 2)
                 {
-                    case 1:
+                    switch (LEVEL)
                     {
-                        LVL1_NOTES = 2;
-                        break;
-                    }
-                    case 2:
-                    {
-                        LVL2_NOTES = 2;
-                        break;
-                    }
-                    case 3:
-                    {
-                        LVL3_NOTES = 2;
-                        break;
+                        case 1:
+                        {
+                            LVL1_NOTES = 2;
+                            break;
+                        }
+                        case 2:
+                        {
+                            LVL2_NOTES = 2;
+                            break;
+                        }
+                        case 3:
+                        {
+                            LVL3_NOTES = 2;
+                            break;
+                        }
                     }
                 }
             }
             else
             {
                 m_note1.SetActive(true);
-                switch (LEVEL)
+                if (LVL2_NOTES <= 1)
                 {
-                    case 1:
+                    switch (LEVEL)
                     {
-                        LVL1_NOTES = 1;
-                        break;
-                    }
-                    case 2:
-                    {
-                        LVL2_NOTES = 1;
-                        break;
-                    }
-                    case 3:
-                    {
-                        LVL3_NOTES = 1;
-                        break;
+                        case 1:
+                        {
+                            LVL1_NOTES = 1;
+                            break;
+                        }
+                        case 2:
+                        {
+                            LVL2_NOTES = 1;
+                            break;
+                        }
+                        case 3:
+                        {
+                            LVL3_NOTES = 1;
+                            break;
+                        }
                     }
                 }
             }
@@ -217,15 +259,16 @@ public class GameManager : MonoBehaviour
 
     public void HandleInteraction(Vector2Int pos)
     {
-
-            m_grid.m_tiles[pos.x, pos.y].GetComponent<Tile>().SwapTileState();
-            m_noOfTilesOn += m_grid.m_tiles[pos.x, pos.y].GetComponent<Tile>().state == 0 ? -1 : 1;
-            foreach (var neighbour in m_grid.m_tiles[pos.x, pos.y].GetComponent<Tile>().m_neighbours)
-            {
-                m_grid.m_tiles[pos.x + neighbour.x, pos.y + neighbour.y].GetComponent<Tile>().SwapTileState();
-                m_noOfTilesOn +=
-                    m_grid.m_tiles[pos.x + neighbour.x, pos.y + neighbour.y].GetComponent<Tile>().state == 0 ? -1 : 1;
-            }
+        m_chadEffect.Play();
+        m_sfx.Play();
+        m_grid.m_tiles[pos.x, pos.y].GetComponent<Tile>().SwapTileState();
+        m_noOfTilesOn += m_grid.m_tiles[pos.x, pos.y].GetComponent<Tile>().state == 0 ? -1 : 1;
+        foreach (var neighbour in m_grid.m_tiles[pos.x, pos.y].GetComponent<Tile>().m_neighbours)
+        {
+            m_grid.m_tiles[pos.x + neighbour.x, pos.y + neighbour.y].GetComponent<Tile>().SwapTileState();
+            m_noOfTilesOn +=
+                m_grid.m_tiles[pos.x + neighbour.x, pos.y + neighbour.y].GetComponent<Tile>().state == 0 ? -1 : 1;
+        }
         
     }
 
