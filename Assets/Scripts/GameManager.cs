@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject m_note1;
     [SerializeField] private GameObject m_note2;
     [SerializeField] private GameObject m_note3;
+    [SerializeField] private ParticleSystem m_chadEffect;
     [SerializeField] private Slider m_raveometer;
     [SerializeField] private GameObject m_winPanel;
     [SerializeField] private GameObject m_TileObject;
@@ -241,15 +242,15 @@ public class GameManager : MonoBehaviour
 
     public void HandleInteraction(Vector2Int pos)
     {
-
-            m_grid.m_tiles[pos.x, pos.y].GetComponent<Tile>().SwapTileState();
-            m_noOfTilesOn += m_grid.m_tiles[pos.x, pos.y].GetComponent<Tile>().state == 0 ? -1 : 1;
-            foreach (var neighbour in m_grid.m_tiles[pos.x, pos.y].GetComponent<Tile>().m_neighbours)
-            {
-                m_grid.m_tiles[pos.x + neighbour.x, pos.y + neighbour.y].GetComponent<Tile>().SwapTileState();
-                m_noOfTilesOn +=
-                    m_grid.m_tiles[pos.x + neighbour.x, pos.y + neighbour.y].GetComponent<Tile>().state == 0 ? -1 : 1;
-            }
+        m_chadEffect.Play();
+        m_grid.m_tiles[pos.x, pos.y].GetComponent<Tile>().SwapTileState();
+        m_noOfTilesOn += m_grid.m_tiles[pos.x, pos.y].GetComponent<Tile>().state == 0 ? -1 : 1;
+        foreach (var neighbour in m_grid.m_tiles[pos.x, pos.y].GetComponent<Tile>().m_neighbours)
+        {
+            m_grid.m_tiles[pos.x + neighbour.x, pos.y + neighbour.y].GetComponent<Tile>().SwapTileState();
+            m_noOfTilesOn +=
+                m_grid.m_tiles[pos.x + neighbour.x, pos.y + neighbour.y].GetComponent<Tile>().state == 0 ? -1 : 1;
+        }
         
     }
 

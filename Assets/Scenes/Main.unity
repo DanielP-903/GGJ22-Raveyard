@@ -2457,6 +2457,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Chad_pref
       objectReference: {fileID: 0}
+    - target: {fileID: 5524903422648233731, guid: 91690f57fc3c9be4a983b86cb90c7a25, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5524903424466680849, guid: 91690f57fc3c9be4a983b86cb90c7a25, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91690f57fc3c9be4a983b86cb90c7a25, type: 3}
 --- !u!198 &353009184 stripped
@@ -5800,6 +5808,7 @@ MonoBehaviour:
   m_note1: {fileID: 374794027}
   m_note2: {fileID: 897871471}
   m_note3: {fileID: 319768574}
+  m_chadEffect: {fileID: 0}
   m_raveometer: {fileID: 323557331}
   m_winPanel: {fileID: 2115137351}
   m_TileObject: {fileID: 1926429326757572277, guid: 54f8203ae0679c64288855c12fda9e7a, type: 3}
